@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Threat-Aware UAV Dodging of Human-Thrown Projectiles with an RGB-D Camera</title>
+  <title>WTBInspector: An Automated UAV-based Wind Turbine Blade Inspection System</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
@@ -74,6 +74,7 @@
       font-weight: 600;
       color: var(--muted);
       margin-bottom: 16px;
+      text-align: center;
     }
 
     .authors {
@@ -121,21 +122,37 @@
       font-weight: 500;
       background: #fafafa;
       cursor: pointer;
-      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.08s ease;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.08s ease, color 0.08s ease;
     }
-    .pill-btn.primary {
-      background: var(--accent);
+
+    .pill-btn.ieee {
+      background: #0062ff;
       color: #ffffff;
       border-color: transparent;
     }
+
+    .pill-btn.ieee:hover {
+      background: #ffffff;
+      color: #0062ff;
+      border-color: #0062ff;
+    }
+
+    .pill-btn.bili {
+      background: #ff69b4;
+      color: #ffffff;
+      border-color: transparent;
+    }
+
+    .pill-btn.bili:hover {
+      background: #ffffff;
+      color: #ff69b4;
+      border-color: #ff69b4;
+    }
+
     .pill-btn:hover {
       text-decoration: none;
       transform: translateY(-1px);
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-      background: #ffffff;
-    }
-    .pill-btn.primary:hover {
-      background: #0040c0;
     }
 
     .hero-media {
@@ -198,17 +215,27 @@
     }
 
     section h2 {
-      font-size: 1.1rem;
-      margin: 0 0 10px;
+      font-size: 1.44rem;
+      margin: 0 0 12px 0;
+      padding-left: 10px;
+      text-align: center;
+      color: var(--accent)
+    }
+
+    section h3 {
+      font-size: 1.08rem;
+      margin: 0 0 12px 0;
       border-left: 4px solid var(--accent);
       padding-left: 10px;
     }
 
     section p {
-      margin: 0 0 8px;
+      margin: 0 0 0 0px;
       font-size: 0.95rem;
       line-height: 1.6;
       color: #333333;
+      text-align: justify;
+      text-justify: inter-word;
     }
 
     .section-subtitle {
@@ -218,35 +245,47 @@
       margin-bottom: 12px;
     }
 
-    /* Method overview */
-    .method-grid {
+    /* overview */
+
+    .overview-framework {
+      width: 100%;
+    }
+
+    .overview-framework img {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 18px 0 18px 0;
+    }
+
+    .overview-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 12px;
       margin-top: 12px;
     }
 
-    .method-card {
+    .overview-card {
       border: 1px solid var(--border);
       border-radius: 14px;
       padding: 14px 14px 12px;
       background: #fbfcff;
     }
 
-    .method-card h3 {
+    .overview-card h3 {
       margin: 0 0 8px;
       font-size: 0.98rem;
       line-height: 1.4;
     }
 
-    .method-card p {
+    .overview-card p {
       margin: 0;
       font-size: 0.92rem;
       line-height: 1.6;
       color: #333333;
     }
 
-    .method-tag {
+    .overview-tag {
       display: inline-block;
       margin-bottom: 8px;
       padding: 4px 10px;
@@ -411,13 +450,13 @@
           <sup>✉ </sup>Corresponding author
         </div>
         <div class="hero-subtitle">
-          IEEE Transactions on Field Robotics (T-FR), 2026 &nbsp;&middot;&nbsp; Accepted in April 17, 2026
+          Accepted by IEEE Transactions on Field Robotics (T-FR), April 17, 2026
         </div>
         
-        <div class="link-row">
-          <a class="pill-btn primary" href="https://ieeexplore.ieee.org/document/11489321" target="_blank" rel="noopener noreferrer">T-FR (IEEE Xplore)</a>
+        <div class="link-row" style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <a class="pill-btn ieee" href="https://ieeexplore.ieee.org/document/11489321" target="_blank" rel="noopener noreferrer">IEEE Xplore (Early Access)</a>
           <!-- <a class="pill-btn" href="https://arxiv.org/abs/2511.22847" target="_blank" rel="noopener noreferrer">arXiv</a> -->
-          <!-- <a class="pill-btn" href="https://www.bilibili.com/video/BV1iprnBpE3i/?spm_id_from=333.337.search-card.all.click&vd_source=fe7dade33da2d6c6aa1afebd4022d71a" target="_blank" rel="noopener noreferrer">Bilibili</a> -->
+          <a class="pill-btn bili" href="https://www.bilibili.com/video/BV1iprnBpE3i" target="_blank" rel="noopener noreferrer">bilibili (Full Video)</a>
         </div>
 
         <div class="hero-media">
@@ -426,13 +465,13 @@
         
         <div class="logo-bar" aria-label="Department logos">
           <div class="logo-slot">
-            <img src="image/sysu-logo.png" alt="SYSU logo">
+            <img src="image/sysu-logo.png" alt="SYSU logo" style="width: auto; height: 60%; display: block;">
           </div>
           <div class="logo-slot">
-            <img src="image/hilab-logo.png" alt="HiLab logo">
+            <img src="image/hilab-logo.png" alt="HiLab logo" style="width: auto; height: 80%; display: block;">
           </div>
           <div class="logo-slot">
-            <img src="image/powerchina-logo.png" alt="PowerChina logo">
+            <img src="image/powerchina-logo.png" alt="PowerChina logo" style="width: auto; height: 100%; display: block;">
           </div>
         </div>
       </header>
@@ -447,7 +486,7 @@
           Nonetheless, challenges persist in this field. 
           Primarily, critical on-site parameters of stationary turbines such as turbine yaw, blade rest angle and tip position 
           cannot be pre-obtained from the wind farm operator. 
-          Existing methods however struggle to accurately estimate turbine tilt angle and blade tip position 
+          Existing overviews however struggle to accurately estimate turbine tilt angle and blade tip position 
           and have limited applicability for blade rest angle estimation. 
           Additionally, neglect of camera orientation during blade surface tracking degrades imaging effect. 
           Moreover, existing pipelines focus on optimizing image quality after inspection rather than in real time during acquisition, 
@@ -465,22 +504,31 @@
         </p>
       </section>
 
-      <!-- Method Overview -->
-      <section id="method">
-        <h2>Method Overview</h2>
-        <div class="section-subtitle">
+      <!-- Overview -->
+      <section id="overview">
+        <h2>Overview</h2>
+        <!-- <div class="section-subtitle">
           Early attack anticipation from human motion, followed by uncertainty-aware evasive planning.
-        </div>
+        </div> -->
+
+        <h3>Framework</h3>
 
         <p>
-          Our framework consists of two tightly coupled modules: <strong>Pose-Aware Projectile Trajectory Prediction (PAPT)</strong>
-          and <strong>Uncertainty-Aware Dodging (UAD)</strong>. Instead of waiting until the projectile becomes clearly visible
-          in flight, the UAV anticipates a potential attack directly from the thrower's body motion using only an onboard RGB-D camera.
+          System framework. Utilizing the onboard sensors, the point cloud and image, along with the drone position and attitude, are acquired. 
+          The <strong>Automated Wind Turbine Parameter Estimation (AWPE)</strong> module estimates the wind turbine parameters, 
+          followed by the <strong>Gimbal-Oriented Blade Surface Tracking (GOST)</strong> module for blade surface tracking, 
+          and the <strong>Real-Time Image Quality Optimization (RIQO)</strong>  module for real-time image quality optimization. 
+          The resulting drone velocity command, gimbal attitude command, 
+          and camera parameters combine to enable blade surface inspection and image acquisition.
         </p>
 
-        <div class="method-grid">
-          <div class="method-card">
-            <div class="method-tag">Stage 1</div>
+        <div class="overview-framework">
+          <img src="image/framework.png" alt="overview framework img">
+        </div>
+
+        <div class="overview-grid">
+          <div class="overview-card">
+            <div class="overview-tag">Stage 1</div>
             <h3>PAPT: Pose-Aware Projectile Trajectory Prediction</h3>
             <p>
               Synchronized RGB-D streams are first used to estimate 3D human keypoints in real time. The recent motion of the
@@ -490,8 +538,8 @@
             </p>
           </div>
 
-          <div class="method-card">
-            <div class="method-tag">Stage 2</div>
+          <div class="overview-card">
+            <div class="overview-tag">Stage 2</div>
             <h3>UAD: Uncertainty-Aware Dodging</h3>
             <p>
               Because both the release timing and the predicted trajectory are uncertain, each candidate projectile path is
@@ -500,8 +548,8 @@
             </p>
           </div>
 
-          <div class="method-card">
-            <div class="method-tag">Optimization</div>
+          <div class="overview-card">
+            <div class="overview-tag">Optimization</div>
             <h3>Threat-Aware Motion Planning</h3>
             <p>
               The UAV trajectory is parameterized by MINCO and optimized in a GCOPTER-style framework with smoothness,
@@ -511,8 +559,8 @@
             </p>
           </div>
 
-          <div class="method-card">
-            <div class="method-tag">Key Advantage</div>
+          <div class="overview-card">
+            <div class="overview-tag">Key Advantage</div>
             <h3>Long-Range, Low-Latency Onboard Response</h3>
             <p>
               By leveraging human pose instead of relying only on direct projectile appearance, the framework enables earlier
@@ -603,7 +651,7 @@
       </section>
 
       <div class="footer-note">
-        Last updated: 2025-11-24 · RA-L project page for “Threat-Aware UAV Dodging of Human-Thrown Projectiles with an RGB-D Camera”
+        Last updated: 2026-04-28 · T-FR project page for "WTBInspector: An Automated UAV-based Wind Turbine Blade Inspection System"
       </div>
     </main>
   </div>
