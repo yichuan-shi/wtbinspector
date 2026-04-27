@@ -10,8 +10,10 @@
       --card-bg: #ffffff;
       --text: #222222;
       --muted: #666666;
-      --accent: #0059ff;
+      --accent: #772B82;
       --accent-soft: #e3ecff;
+      --color-ieee: #00629B; 
+      --color-bili: #FB7299; 
       --border: #dddddd;
       --code-bg: #111111;
       --max-width: 960px;
@@ -73,7 +75,8 @@
       font-size: 0.95rem;
       font-weight: 600;
       color: var(--muted);
-      margin-bottom: 16px;
+      margin-top: 16px;
+      margin-bottom: 24px;
       text-align: center;
     }
 
@@ -87,6 +90,7 @@
 
     .authors a {
       font-weight: 500;
+      color: var(--text);
     }
 
     .authors sup + a::before {
@@ -126,33 +130,37 @@
     }
 
     .pill-btn.ieee {
-      background: #0062ff;
-      color: #ffffff;
+      background: var(--color-ieee);
+      color: var(--bg);
       border-color: transparent;
     }
 
     .pill-btn.ieee:hover {
-      background: #ffffff;
-      color: #0062ff;
-      border-color: #0062ff;
+      background: var(--bg);
+      color: var(--color-ieee);
+      border-color: var(--color-ieee);
     }
 
     .pill-btn.bili {
-      background: #ff69b4;
-      color: #ffffff;
+      background: var(--color-bili);
+      color: var(--bg);
       border-color: transparent;
     }
 
     .pill-btn.bili:hover {
-      background: #ffffff;
-      color: #ff69b4;
-      border-color: #ff69b4;
+      background: var(--bg);
+      color: var(--color-bili);
+      border-color: var(--color-bili);
     }
 
     .pill-btn:hover {
       text-decoration: none;
       transform: translateY(-1px);
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .hero-title {
+      color: var(--accent);
     }
 
     .hero-media {
@@ -249,13 +257,38 @@
 
     .overview-framework {
       width: 100%;
+      justify-content: center;
     }
 
     .overview-framework img {
       width: 100%;
       height: auto;
       display: block;
-      margin: 18px 0 18px 0;
+      margin: 18px auto;
+    }
+
+    .overview-platform {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .overview-platform img {
+      width: 50%;
+      height: auto;
+      display: block;
+      margin: 18px auto;
+    }
+
+    .overview-process {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .overview-process img {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 18px auto;
     }
 
     .overview-grid {
@@ -336,6 +369,7 @@
     .video-tile {
       position: relative;
       border-radius: 12px;
+      margin-top: 10px;
       overflow: hidden;
       border: 1px solid var(--border);
       background: #000;
@@ -356,6 +390,7 @@
 
     .video-label {
       position: absolute;
+      margin-bottom: 10px;
       top: 10px;
       left: 12px;
       background: rgba(0, 0, 0, 0.55);
@@ -369,8 +404,10 @@
     }
 
     .video-caption {
-      margin-top: 10px;
+      margin-top: 0px;
+      margin-bottom: 0px;
       font-size: 0.95rem;
+      font-weight: 600;
       color: var(--muted);
       text-align: center;
     }
@@ -384,10 +421,10 @@
 
     /* BibTeX 样式 */
     .code-block {
-      background: var(--code-bg);
-      color: #f5f5f5;
+      background: var(--bg);
+      color: var(--text);
       border-radius: 12px;
-      padding: 14px 16px;
+      padding: 0 16px;
       font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
       font-size: 0.8rem;
       overflow-x: auto;
@@ -456,11 +493,11 @@
         <div class="link-row" style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
           <a class="pill-btn ieee" href="https://ieeexplore.ieee.org/document/11489321" target="_blank" rel="noopener noreferrer">IEEE Xplore (Early Access)</a>
           <!-- <a class="pill-btn" href="https://arxiv.org/abs/2511.22847" target="_blank" rel="noopener noreferrer">arXiv</a> -->
-          <a class="pill-btn bili" href="https://www.bilibili.com/video/BV1iprnBpE3i" target="_blank" rel="noopener noreferrer">bilibili (Full Video)</a>
+          <a class="pill-btn bili" href="#" target="_blank" rel="noopener noreferrer">bilibili (Full Video, Coming Soon)</a>
         </div>
 
         <div class="hero-media">
-          <video src="video/title-mov.mp4" alt="title movie" loop autoplay muted playsinline></video>
+  <video id="hero-media" src="video/title-mov.mp4" alt="title movie" loop preload="auto" muted playsinline></video>
         </div>
         
         <div class="logo-bar" aria-label="Department logos">
@@ -507,14 +544,15 @@
       <!-- Overview -->
       <section id="overview">
         <h2>Overview</h2>
-        <!-- <div class="section-subtitle">
-          Early attack anticipation from human motion, followed by uncertainty-aware evasive planning.
-        </div> -->
 
-        <h3>Framework</h3>
+        <h3>System Framework</h3>
+
+        <div class="overview-framework">
+          <img src="image/system-framework.png" alt="overview framework img">
+        </div>
 
         <p>
-          System framework. Utilizing the onboard sensors, the point cloud and image, along with the drone position and attitude, are acquired. 
+          Utilizing the onboard sensors, the point cloud and image, along with the drone position and attitude, are acquired. 
           The <strong>Automated Wind Turbine Parameter Estimation (AWPE)</strong> module estimates the wind turbine parameters, 
           followed by the <strong>Gimbal-Oriented Blade Surface Tracking (GOST)</strong> module for blade surface tracking, 
           and the <strong>Real-Time Image Quality Optimization (RIQO)</strong>  module for real-time image quality optimization. 
@@ -522,130 +560,131 @@
           and camera parameters combine to enable blade surface inspection and image acquisition.
         </p>
 
-        <div class="overview-framework">
-          <img src="image/framework.png" alt="overview framework img">
+        <br><br>
+
+        <h3>Hardware Platform</h3>
+
+        <div class="overview-platform">
+          <img src="image/hardware-platform.png" alt="overview framework img">
         </div>
 
-        <div class="overview-grid">
-          <div class="overview-card">
-            <div class="overview-tag">Stage 1</div>
-            <h3>PAPT: Pose-Aware Projectile Trajectory Prediction</h3>
-            <p>
-              Synchronized RGB-D streams are first used to estimate 3D human keypoints in real time. The recent motion of the
-              throwing joint is smoothed with a pre-release trajectory model, and multiple plausible release instants are detected
-              from the joint’s velocity and acceleration dynamics. For each candidate release moment, the system predicts a
-              post-release projectile trajectory using a physics-based motion model.
-            </p>
-          </div>
-
-          <div class="overview-card">
-            <div class="overview-tag">Stage 2</div>
-            <h3>UAD: Uncertainty-Aware Dodging</h3>
-            <p>
-              Because both the release timing and the predicted trajectory are uncertain, each candidate projectile path is
-              surrounded by an expanding <strong>ivory-shaped uncertainty region</strong>. A collision threat is identified
-              when the UAV’s current position or planned trajectory intersects this region, enabling conservative but timely risk assessment.
-            </p>
-          </div>
-
-          <div class="overview-card">
-            <div class="overview-tag">Optimization</div>
-            <h3>Threat-Aware Motion Planning</h3>
-            <p>
-              The UAV trajectory is parameterized by MINCO and optimized in a GCOPTER-style framework with smoothness,
-              feasibility, obstacle, and time objectives. On top of these standard terms, we introduce two dodging-oriented
-              penalties: a <strong>surviving-trajectory penalty</strong> that pushes the UAV away from all still-threatening
-              candidate projectile paths, and a <strong>relative-velocity penalty</strong> that encourages safer avoidance directions.
-            </p>
-          </div>
-
-          <div class="overview-card">
-            <div class="overview-tag">Key Advantage</div>
-            <h3>Long-Range, Low-Latency Onboard Response</h3>
-            <p>
-              By leveraging human pose instead of relying only on direct projectile appearance, the framework enables earlier
-              threat anticipation, longer effective detection range, and real-time onboard dodging using only an RGB-D camera,
-              without requiring expensive event cameras or heavy perception hardware.
-            </p>
-          </div>
-        </div>
-
-        <p style="margin-top: 14px;">
-          In our experiments, the perception module achieves an effective detection distance of <strong>6.0 m</strong> with an
-          average latency of <strong>26.4 ms</strong> on CPU-only hardware. For 3D keypoint tracking, the position RMSE is
-          <strong>0.037 m</strong> and the velocity RMSE is <strong>0.154 m/s</strong>, supporting reliable early warning and
-          real-time evasive motion in diverse real-world attack scenarios.
+        <p>
+          The hardware platform mainly consists of a drone, a LiDAR, a gimbal camera, an onboard computer, and a remote controller, 
+          possessing capabilities of large-range spatial perception and high-quality image acquisition.
         </p>
+
+        <br><br>
+
+        <h3>Inspection Process</h3>
+
+        <div class="overview-process">
+          <img src="image/inspection-process.png" alt="overview framework img">
+        </div>
+
+        <p>
+          The inspection process comprises 6 stages: takeoff, ascending, orienting, inspecting, descending, and landing. 
+          In the inspecting stage, the drone sequentially inspects 4 surfaces of each blade. (Abbreviations: Param. Est.: Parameter Estimation)
+        </p>
+
       </section>
 
       <!-- Experiments -->
       <section id="experiments">
-        <h2>Experiments</h2>
+        <h2>Field Inspection</h2>
+
+        <h3>Camera View</h3>
+
         <div class="video-grid">
+          
           <div class="video-item">
             <div class="video-tile">
-              <span class="video-label">Lighting</span>
-              <video src="video/different_lighting_conditions.mp4" controls muted playsinline loop></video>
+              <span class="video-label">Playback Speed: 2x</span>
+              <video src="video/leading.mp4" loop autoplay muted playsinline></video>
             </div>
-            <div class="video-caption">Robustness under different lighting</div>
+            <div class="video-caption">Leading Edge Inspection</div>
           </div>
 
           <div class="video-item">
             <div class="video-tile">
-              <span class="video-label">Occlusion</span>
-              <video src="video/different_occlusion_conditions.mp4" controls muted playsinline loop></video>
+              <span class="video-label">Playback Speed: 2x</span>
+              <video src="video/trailing.mp4" loop autoplay muted playsinline></video>
             </div>
-            <div class="video-caption">Response under occlusion</div>
+            <div class="video-caption">Trailing Edge Inspection</div>
           </div>
 
           <div class="video-item">
             <div class="video-tile">
-              <span class="video-label">Pose</span>
-              <video src="video/diverse_pos_and_joint.mp4" controls muted playsinline loop></video>
+              <span class="video-label">Playback Speed: 2x</span>
+              <video src="video/pressure.mp4" loop autoplay muted playsinline></video>
             </div>
-            <div class="video-caption">Diverse throwing postures and joint motion</div>
+            <div class="video-caption">Pressure Side Inspection</div>
           </div>
 
           <div class="video-item">
             <div class="video-tile">
-              <span class="video-label">Throwers</span>
-              <video src="video/diverse_throwers_and_projectiles.mp4" controls muted playsinline loop></video>
+              <span class="video-label">Playback Speed: 2x</span>
+              <video src="video/suction.mp4" loop autoplay muted playsinline></video>
             </div>
-            <div class="video-caption">Different throwers and projectiles</div>
+            <div class="video-caption">Suction Side Inspection</div>
           </div>
 
-          <div class="video-item">
-            <div class="video-tile">
-              <span class="video-label">Multi-Attack</span>
-              <video src="video/multiple_simulatneous_attacks.mp4" controls muted playsinline loop></video>
-            </div>
-            <div class="video-caption">Multiple simultaneous attacks</div>
-          </div>
-
-          <div class="video-item">
-            <div class="video-tile">
-              <span class="video-label">In Flight</span>
-              <video src="video/thrown-projectile_attacks_toward_a_flying_uav.mp4" controls muted playsinline loop></video>
-            </div>
-            <div class="video-caption">Thrown-projectile attacks toward a flying UAV</div>
-          </div>
         </div>
-        <div class="video-note">Experiment video collection</div>
+
+        <br><br>
+
+        <h3>Third-Person View</h3>
+
+        <div class="video-grid">
+          
+          <div class="video-item">
+            <div class="video-tile">
+              <span class="video-label">Playback Speed: 2x</span>
+              <video src="video/third-person-1.mp4" loop autoplay muted playsinline></video>
+            </div>
+            <div class="video-caption">Inspection</div>
+          </div>
+
+          <div class="video-item">
+            <div class="video-tile">
+              <span class="video-label">Playback Speed: 2x</span>
+              <video src="video/third-person-2.mp4" loop autoplay muted playsinline></video>
+            </div>
+            <div class="video-caption">Inspection</div>
+          </div>
+
+          <div class="video-item">
+            <div class="video-tile">
+              <span class="video-label">Playback Speed: 2x</span>
+              <video src="video/third-person-3.mp4" loop autoplay muted playsinline></video>
+            </div>
+            <div class="video-caption">Inspection</div>
+          </div>
+
+          <div class="video-item">
+            <div class="video-tile">
+              <span class="video-label">Playback Speed: 2x</span>
+              <video src="video/third-person-4.mp4" loop autoplay muted playsinline></video>
+            </div>
+            <div class="video-caption">Transition</div>
+          </div>
+
+        </div>
+
       </section>
 
       <!-- BibTeX -->
       <section id="bibtex">
-        <h2>BibTeX</h2>
+        <h2>Citation</h2>
         <div class="code-block">
-@article{zhang2025threat,
-  title={Threat-Aware UAV Dodging of Human-Thrown Projectiles With an RGB-D Camera},
-  author={Zhang, Yuying and Fan, Na and Zheng, Haowen and Liang, Junning and Pan, Zongliang and Chen, Qifeng and Lyu, Ximin},
-  journal={IEEE Robotics and Automation Letters},
-  volume={11},
-  number={2},
-  pages={1178--1185},
-  year={2025},
-  publisher={IEEE}
+@article{shi2026wtbinspector,
+  author={Shi, Yichuan and Liu, Hao and Zheng, Haowen and Yu, Haowen and Liang, Xianqi and Li, Jie and Ma, Minmin and Lyu, Ximin},
+  journal={IEEE Transactions on Field Robotics}, 
+  title={WTBInspector: An Automated UAV-based Wind Turbine Blade Inspection System}, 
+  year={2026},
+  volume={},
+  number={},
+  pages={1-1},
+  doi={10.1109/TFR.2026.3685949}
 }
         </div>
       </section>
@@ -679,6 +718,22 @@
           counterEl.textContent = "Page views: unavailable";
         });
     })();
+
+    (function () {
+      const video = document.getElementById('hero-media');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            video.play();
+          } else {
+            video.pause();
+          }
+        });
+      }, { threshold: 1.0 });
+
+      observer.observe(video);
+    })();
+
   </script>
 </body>
 </html>
