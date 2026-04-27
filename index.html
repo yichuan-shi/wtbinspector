@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Threat-Aware UAV Dodging of Human-Thrown Projectiles with an RGB-D Camera</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f7f7f7;
+      --card-bg: #ffffff;
+      --text: #222222;
+      --muted: #666666;
+      --accent: #0059ff;
+      --accent-soft: #e3ecff;
+      --border: #dddddd;
+      --code-bg: #111111;
+      --max-width: 960px;
+      --radius: 12px;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 32px 16px 64px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+    }
+
+    /* 顶部信息卡片 */
+    .hero-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 32px 24px 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0, 0, 0, 0.03);
+      margin-bottom: 32px;
+    }
+
+    .hero-title {
+      font-size: clamp(1.8rem, 2.4vw + 1.4rem, 2.5rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin: 0 0 8px;
+      text-align: center;
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .authors {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 8px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .authors a {
+      font-weight: 500;
+    }
+
+    .authors sup + a::before {
+      content: ", ";
+      vertical-align: baseline;
+      color: var(--muted);
+    }
+
+    .note-star {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 4px;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    .pill-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-size: 0.85rem;
+      font-weight: 500;
+      background: #fafafa;
+      cursor: pointer;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.08s ease;
+    }
+    .pill-btn.primary {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: transparent;
+    }
+    .pill-btn:hover {
+      text-decoration: none;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      background: #ffffff;
+    }
+    .pill-btn.primary:hover {
+      background: #0040c0;
+    }
+
+    .hero-media {
+      margin-top: 20px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #bbbbbb;
+      font-size: 0.9rem;
+    }
+
+    .hero-media video {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+    }
+
+    .logo-bar {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .logo-slot {
+      height: 64px;
+      border-radius: 12px;
+      border: 1px dashed var(--border);
+      background: #f3f5f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .logo-slot img {
+      max-height: 52px;
+      max-width: 90%;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* 普通 section */
+    section {
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 20px 20px 22px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    section h2 {
+      font-size: 1.1rem;
+      margin: 0 0 10px;
+      border-left: 4px solid var(--accent);
+      padding-left: 10px;
+    }
+
+    section p {
+      margin: 0 0 8px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #333333;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: -4px;
+      margin-bottom: 12px;
+    }
+
+    /* Method overview */
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .method-card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 14px 12px;
+      background: #fbfcff;
+    }
+
+    .method-card h3 {
+      margin: 0 0 8px;
+      font-size: 0.98rem;
+      line-height: 1.4;
+    }
+
+    .method-card p {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #333333;
+    }
+
+    .method-tag {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    /* 图片网格 */
+    .image-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .image-card {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #000;
+    }
+
+    .image-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* 视频网格 */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .video-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .video-tile {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #000;
+      color: #bbbbbb;
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+    }
+
+    .video-tile video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .video-label {
+      position: absolute;
+      top: 10px;
+      left: 12px;
+      background: rgba(0, 0, 0, 0.55);
+      color: #ffffff;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      z-index: 2;
+    }
+
+    .video-caption {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .video-note {
+      margin-top: 12px;
+      font-size: 0.95rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* BibTeX 样式 */
+    .code-block {
+      background: var(--code-bg);
+      color: #f5f5f5;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.8rem;
+      overflow-x: auto;
+      line-height: 1.5;
+      white-space: pre;
+    }
+
+    .footer-note {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .view-counter {
+      margin: 6px 10px 14px;
+      text-align: right;
+      font-size: 0.75rem;
+      color: var(--muted);
+      opacity: 0.65;
+    }
+
+    @media (max-width: 640px) {
+      .hero-card {
+        padding: 24px 16px 18px;
+      }
+      .logo-bar {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      section {
+        padding: 16px 12px 18px;
+      }
+      .video-grid {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <main class="container">
+      <!-- 顶部信息 -->
+      <header class="hero-card">
+        <h1 class="hero-title">
+          WTBInspector: An Automated UAV-based Wind Turbine Blade Inspection System
+        </h1>
+        <div class="authors">
+          <a href="#" target="_blank" rel="noopener noreferrer">Yichuan Shi</a><sup>1</sup>
+          <a href="#" target="_blank" rel="noopener noreferrer">Hao Liu</a><sup>2</sup>
+          <a href="#" target="_blank" rel="noopener noreferrer">Haowen Zheng</a><sup>1</sup>
+          <a href="#" target="_blank" rel="noopener noreferrer">Haowen Yu</a><sup>1</sup>
+          <a href="#" target="_blank" rel="noopener noreferrer">Xianqi Liang</a><sup>1</sup>
+          <a href="#" target="_blank" rel="noopener noreferrer">Jie Li</a><sup>2</sup>
+          <a href="#" target="_blank" rel="noopener noreferrer">Minmin Ma</a><sup>2</sup>
+          <a href="#" target="_blank" rel="noopener noreferrer">Ximin Lyu</a><sup>1,✉</sup>
+        </div>
+        <div class="note-star">
+          <sup>1 </sup>School of Intelligent Systems Engineering, Sun Yat-sen University, Shenzhen, China<br>
+          <sup>2 </sup>PowerChina Zhongnan Engineering Corporation Limited, Changsha, China<br>
+          <sup>✉ </sup>Corresponding author
+        </div>
+        <div class="hero-subtitle">
+          IEEE Transactions on Field Robotics (T-FR), 2026 &nbsp;&middot;&nbsp; Accepted in April 17, 2026
+        </div>
+        
+        <div class="link-row">
+          <a class="pill-btn primary" href="https://ieeexplore.ieee.org/document/11489321" target="_blank" rel="noopener noreferrer">T-FR (IEEE Xplore)</a>
+          <!-- <a class="pill-btn" href="https://arxiv.org/abs/2511.22847" target="_blank" rel="noopener noreferrer">arXiv</a> -->
+          <!-- <a class="pill-btn" href="https://www.bilibili.com/video/BV1iprnBpE3i/?spm_id_from=333.337.search-card.all.click&vd_source=fe7dade33da2d6c6aa1afebd4022d71a" target="_blank" rel="noopener noreferrer">Bilibili</a> -->
+        </div>
+
+        <div class="hero-media">
+          <video src="video/title-mov.mp4" alt="title movie" loop autoplay muted playsinline></video>
+        </div>
+        
+        <div class="logo-bar" aria-label="Department logos">
+          <div class="logo-slot">
+            <img src="image/sysu-logo.png" alt="SYSU logo">
+          </div>
+          <div class="logo-slot">
+            <img src="image/hilab-logo.png" alt="HiLab logo">
+          </div>
+          <div class="logo-slot">
+            <img src="image/powerchina-logo.png" alt="PowerChina logo">
+          </div>
+        </div>
+      </header>
+
+      <!-- Abstract -->
+      <section id="abstract">
+        <h2>Abstract</h2>
+        <p>
+          The rise of the renewable energy industry has propelled the growth of the wind power sector, 
+          escalating demands on the operation and maintenance of wind turbines. 
+          Recent advancements have integrated UAVs and automated algorithms, enhancing the efficiency of automated wind turbine blade inspection. 
+          Nonetheless, challenges persist in this field. 
+          Primarily, critical on-site parameters of stationary turbines such as turbine yaw, blade rest angle and tip position 
+          cannot be pre-obtained from the wind farm operator. 
+          Existing methods however struggle to accurately estimate turbine tilt angle and blade tip position 
+          and have limited applicability for blade rest angle estimation. 
+          Additionally, neglect of camera orientation during blade surface tracking degrades imaging effect. 
+          Moreover, existing pipelines focus on optimizing image quality after inspection rather than in real time during acquisition, 
+          an approach that struggles to recover details lost during the imaging process. 
+          To tackle these challenges, we introduce WTBInspector: a fully automated UAV-based wind turbine blade inspection system. 
+          This system fulfills three key functions: 
+          extracting the turbine structure and estimating complete pose parameters, 
+          maintaining camera alignment with the blade surface to ensure orthogonal imaging during blade tracking, 
+          and dynamically enhancing image quality in real time during image acquisition. 
+          Integrating hardware and software and a ground monitoring application, the system enables efficient and high-quality inspection. 
+          Over 600 field inspections have been conducted on 10 distinct wind turbine models across 5 operational wind farms. 
+          These inspections covered complex hilly terrain and up to 10 m/s winds, achieving a 99.98% blade surface coverage rate. 
+          Except for unsuitability in extreme weather such as heavy rain or dense fog, 
+          the field tests confirm that WTBInspector exhibits robustness, applicability and effectiveness.
+        </p>
+      </section>
+
+      <!-- Method Overview -->
+      <section id="method">
+        <h2>Method Overview</h2>
+        <div class="section-subtitle">
+          Early attack anticipation from human motion, followed by uncertainty-aware evasive planning.
+        </div>
+
+        <p>
+          Our framework consists of two tightly coupled modules: <strong>Pose-Aware Projectile Trajectory Prediction (PAPT)</strong>
+          and <strong>Uncertainty-Aware Dodging (UAD)</strong>. Instead of waiting until the projectile becomes clearly visible
+          in flight, the UAV anticipates a potential attack directly from the thrower's body motion using only an onboard RGB-D camera.
+        </p>
+
+        <div class="method-grid">
+          <div class="method-card">
+            <div class="method-tag">Stage 1</div>
+            <h3>PAPT: Pose-Aware Projectile Trajectory Prediction</h3>
+            <p>
+              Synchronized RGB-D streams are first used to estimate 3D human keypoints in real time. The recent motion of the
+              throwing joint is smoothed with a pre-release trajectory model, and multiple plausible release instants are detected
+              from the joint’s velocity and acceleration dynamics. For each candidate release moment, the system predicts a
+              post-release projectile trajectory using a physics-based motion model.
+            </p>
+          </div>
+
+          <div class="method-card">
+            <div class="method-tag">Stage 2</div>
+            <h3>UAD: Uncertainty-Aware Dodging</h3>
+            <p>
+              Because both the release timing and the predicted trajectory are uncertain, each candidate projectile path is
+              surrounded by an expanding <strong>ivory-shaped uncertainty region</strong>. A collision threat is identified
+              when the UAV’s current position or planned trajectory intersects this region, enabling conservative but timely risk assessment.
+            </p>
+          </div>
+
+          <div class="method-card">
+            <div class="method-tag">Optimization</div>
+            <h3>Threat-Aware Motion Planning</h3>
+            <p>
+              The UAV trajectory is parameterized by MINCO and optimized in a GCOPTER-style framework with smoothness,
+              feasibility, obstacle, and time objectives. On top of these standard terms, we introduce two dodging-oriented
+              penalties: a <strong>surviving-trajectory penalty</strong> that pushes the UAV away from all still-threatening
+              candidate projectile paths, and a <strong>relative-velocity penalty</strong> that encourages safer avoidance directions.
+            </p>
+          </div>
+
+          <div class="method-card">
+            <div class="method-tag">Key Advantage</div>
+            <h3>Long-Range, Low-Latency Onboard Response</h3>
+            <p>
+              By leveraging human pose instead of relying only on direct projectile appearance, the framework enables earlier
+              threat anticipation, longer effective detection range, and real-time onboard dodging using only an RGB-D camera,
+              without requiring expensive event cameras or heavy perception hardware.
+            </p>
+          </div>
+        </div>
+
+        <p style="margin-top: 14px;">
+          In our experiments, the perception module achieves an effective detection distance of <strong>6.0 m</strong> with an
+          average latency of <strong>26.4 ms</strong> on CPU-only hardware. For 3D keypoint tracking, the position RMSE is
+          <strong>0.037 m</strong> and the velocity RMSE is <strong>0.154 m/s</strong>, supporting reliable early warning and
+          real-time evasive motion in diverse real-world attack scenarios.
+        </p>
+      </section>
+
+      <!-- Experiments -->
+      <section id="experiments">
+        <h2>Experiments</h2>
+        <div class="video-grid">
+          <div class="video-item">
+            <div class="video-tile">
+              <span class="video-label">Lighting</span>
+              <video src="video/different_lighting_conditions.mp4" controls muted playsinline loop></video>
+            </div>
+            <div class="video-caption">Robustness under different lighting</div>
+          </div>
+
+          <div class="video-item">
+            <div class="video-tile">
+              <span class="video-label">Occlusion</span>
+              <video src="video/different_occlusion_conditions.mp4" controls muted playsinline loop></video>
+            </div>
+            <div class="video-caption">Response under occlusion</div>
+          </div>
+
+          <div class="video-item">
+            <div class="video-tile">
+              <span class="video-label">Pose</span>
+              <video src="video/diverse_pos_and_joint.mp4" controls muted playsinline loop></video>
+            </div>
+            <div class="video-caption">Diverse throwing postures and joint motion</div>
+          </div>
+
+          <div class="video-item">
+            <div class="video-tile">
+              <span class="video-label">Throwers</span>
+              <video src="video/diverse_throwers_and_projectiles.mp4" controls muted playsinline loop></video>
+            </div>
+            <div class="video-caption">Different throwers and projectiles</div>
+          </div>
+
+          <div class="video-item">
+            <div class="video-tile">
+              <span class="video-label">Multi-Attack</span>
+              <video src="video/multiple_simulatneous_attacks.mp4" controls muted playsinline loop></video>
+            </div>
+            <div class="video-caption">Multiple simultaneous attacks</div>
+          </div>
+
+          <div class="video-item">
+            <div class="video-tile">
+              <span class="video-label">In Flight</span>
+              <video src="video/thrown-projectile_attacks_toward_a_flying_uav.mp4" controls muted playsinline loop></video>
+            </div>
+            <div class="video-caption">Thrown-projectile attacks toward a flying UAV</div>
+          </div>
+        </div>
+        <div class="video-note">Experiment video collection</div>
+      </section>
+
+      <!-- BibTeX -->
+      <section id="bibtex">
+        <h2>BibTeX</h2>
+        <div class="code-block">
+@article{zhang2025threat,
+  title={Threat-Aware UAV Dodging of Human-Thrown Projectiles With an RGB-D Camera},
+  author={Zhang, Yuying and Fan, Na and Zheng, Haowen and Liang, Junning and Pan, Zongliang and Chen, Qifeng and Lyu, Ximin},
+  journal={IEEE Robotics and Automation Letters},
+  volume={11},
+  number={2},
+  pages={1178--1185},
+  year={2025},
+  publisher={IEEE}
+}
+        </div>
+      </section>
+
+      <div class="footer-note">
+        Last updated: 2025-11-24 · RA-L project page for “Threat-Aware UAV Dodging of Human-Thrown Projectiles with an RGB-D Camera”
+      </div>
+    </main>
+  </div>
+
+  <div class="view-counter" id="view-counter">Loading view count…</div>
+
+  <script>
+    // Simple view counter using countapi.xyz
+    (function () {
+      const counterEl = document.getElementById("view-counter");
+      if (!counterEl) return;
+
+      const endpoint = "https://api.countapi.xyz/hit/threat-aware-dodging.github.io/page";
+
+      fetch(endpoint)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data && typeof data.value === "number") {
+            counterEl.textContent = `Page views: ${data.value}`;
+          } else {
+            counterEl.textContent = "Page views: unavailable";
+          }
+        })
+        .catch(() => {
+          counterEl.textContent = "Page views: unavailable";
+        });
+    })();
+  </script>
+</body>
+</html>
