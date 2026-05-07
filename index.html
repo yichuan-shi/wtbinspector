@@ -13,6 +13,7 @@
       --accent: #772B82;
       --accent-soft: #e3ecff;
       --color-ieee: #00629B; 
+      --color-youtube: #FF0000;
       --color-bili: #FB7299; 
       --border: #dddddd;
       --code-bg: #111111;
@@ -139,6 +140,18 @@
       background: var(--bg);
       color: var(--color-ieee);
       border-color: var(--color-ieee);
+    }
+
+    .pill-btn.youtube {
+      background: var(--color-youtube);
+      color: var(--bg);
+      border-color: transparent;
+    }
+
+    .pill-btn.youtube:hover {
+      background: var(--bg);
+      color: var(--color-youtube);
+      border-color: var(--color-youtube);
     }
 
     .pill-btn.bili {
@@ -491,8 +504,8 @@
         
         <div class="link-row" style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
           <a class="pill-btn ieee" href="https://ieeexplore.ieee.org/document/11489321" target="_blank" rel="noopener noreferrer">IEEE Xplore (Early Access)</a>
-          <!-- <a class="pill-btn" href="https://arxiv.org/abs/2511.22847" target="_blank" rel="noopener noreferrer">arXiv</a> -->
-          <a class="pill-btn bili" href="#" target="_blank" rel="noopener noreferrer">bilibili (Full Video, Coming Soon)</a>
+          <a class="pill-btn youtube" href="https://www.youtube.com/watch?v=ljJfR9rZAek" target="_blank" rel="noopener noreferrer">YouTube (Full Video)</a>
+          <a class="pill-btn bili" href="https://www.bilibili.com/video/BV1ssdcBnE2E" target="_blank" rel="noopener noreferrer">bilibili (Full Video)</a>
         </div>
 
         <div class="hero-media">
